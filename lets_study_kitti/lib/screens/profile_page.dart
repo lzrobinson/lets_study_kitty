@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:lets_study_kitti/profile_review.dart';
 import '../home_page/my_navigation_bar.dart';
 import '../likes.dart';
@@ -11,6 +14,9 @@ const double imgSize = 150;
 const boundarySize = 100.0;
 const vOffset = 15.0;
 const hOffset = 30.0;
+const labelFont = TextStyle(fontSize: 24);
+const outlineColor = Color.fromARGB(100, 0, 0, 0);
+const boxColor = Color.fromARGB(255, 254, 244, 225);
 
 class ProfilePage extends StatefulWidget {
   final String userID;
@@ -27,6 +33,9 @@ class _ProfilePageState extends State<ProfilePage> {
   String username = '';
   String major = '';
   Map<String, String> _subjectNames = {};
+  bool _edit = false;
+  final GlobalKey<FormBuilderState> _profileUpdateKey =
+      GlobalKey<FormBuilderState>();
 
   CircleAvatar profilePic = const CircleAvatar(
     radius: imgSize / 2,
@@ -81,40 +90,127 @@ class _ProfilePageState extends State<ProfilePage> {
           Column(children: [
             profilePic,
             MaterialButton(
-                child:
-                    const Text('Edit Profile', style: TextStyle(fontSize: 12)),
-                onPressed: () {
-                  debugPrint('Time to Edit Profile');
+                child: _edit == true
+                    ? const Text('Save Edit', style: TextStyle(fontSize: 12))
+                    : const Text('Edit Profile',
+                        style: TextStyle(fontSize: 12)),
+                onPressed: () async {
+                  setState(() {
+                    _edit = !_edit;
+                  });
+                  if (!_edit) {
+                    final validationSuccess =
+                        _profileUpdateKey.currentState!.validate();
+                    if (validationSuccess == true) {
+                      _profileUpdateKey.currentState?.save();
+                      debugPrint(
+                          _profileUpdateKey.currentState?.value.toString());
+                      setState(() {
+                        username = _profileUpdateKey
+                            .currentState!.fields['Username']!.value
+                            .toString();
+                        major = _profileUpdateKey
+                            .currentState!.fields['Major']!.value
+                            .toString();
+                      });
+                      await updateUserDetails(
+                        name: _profileUpdateKey
+                            .currentState!.fields['Username']!.value
+                            .toString(),
+                        major: _profileUpdateKey
+                            .currentState!.fields['Major']!.value
+                            .toString(),
+                        uid: FirebaseAuth.instance.currentUser!.uid,
+                      );
+                    } else {
+                      showDialog(
+                          context: context,
+                          barrierDismissible:
+                              false, // disables popup to close if tapped outside popup (need a button to close)
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text(
+                                "Cannot Update Details",
+                              ),
+                              content: const Text("Validation Not Successful"),
+                              //buttons?
+                              actions: <Widget>[
+                                MaterialButton(
+                                  child: const Text("Close"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  }, //closes popup
+                                ),
+                              ],
+                            );
+                          });
+                    }
+                  }
                 })
           ]),
           Align(
               alignment: Alignment.centerLeft,
               child: Container(
-                  padding: const EdgeInsets.fromLTRB(hOffset, 0, 0, 10),
+                  padding: const EdgeInsets.fromLTRB(hOffset, 0, 0, 0),
                   child: Column(children: const [
                     Text('Name: ',
                         style: TextStyle(
                             fontSize: 24, fontWeight: FontWeight.bold)),
-                    //Text(username, style: const TextStyle(fontSize: 24))
                     SizedBox(height: vOffset),
                     Text('Major: ',
                         style: TextStyle(
                             fontSize: 24, fontWeight: FontWeight.bold))
                   ]))),
-          Container(
-              alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.fromLTRB(hOffset, 0, 0, 10),
-              child: Column(children: [
-                Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      username,
-                      style: const TextStyle(fontSize: 24),
-                      textAlign: TextAlign.start,
-                    )),
-                const SizedBox(height: vOffset),
-                Text(major, style: const TextStyle(fontSize: 24))
-              ])),
+          !_edit
+              ? Container(
+                  alignment: Alignment.centerLeft,
+                  padding: const EdgeInsets.fromLTRB(hOffset, 0, 0, 0),
+                  child: Container(
+                      child: Column(children: [
+                    Container(
+                        width: 1000, child: Text(username, style: labelFont)),
+                    SizedBox(height: vOffset),
+                    Container(
+                        width: 1000, child: Text(major, style: labelFont)),
+                  ])))
+              : Container(
+                  alignment: Alignment.centerLeft,
+                  padding: const EdgeInsets.fromLTRB(hOffset, 0, 0, 0),
+                  child: FormBuilder(
+                      key: _profileUpdateKey,
+                      child: Column(children: [
+                        Container(
+                            width: 300,
+                            height: 30,
+                            alignment: Alignment.centerLeft,
+                            child: FormBuilderTextField(
+                              style: labelFont,
+                              initialValue: username,
+                              validator: FormBuilderValidators.required(),
+                              cursorColor: Colors.black,
+                              name: 'Username',
+                              decoration: const InputDecoration(
+                                hintText: 'New Name',
+                                hintStyle: labelFont,
+                              ),
+                            )),
+                        SizedBox(height: vOffset),
+                        Container(
+                            width: 300,
+                            height: 30,
+                            alignment: Alignment.centerLeft,
+                            child: FormBuilderTextField(
+                              style: labelFont,
+                              initialValue: major,
+                              validator: FormBuilderValidators.required(),
+                              cursorColor: Colors.black,
+                              name: 'Major',
+                              decoration: const InputDecoration(
+                                hintText: 'New Major',
+                                hintStyle: labelFont,
+                              ),
+                            )),
+                      ])))
         ]),
         Container(
           padding: const EdgeInsets.fromLTRB(boundarySize, 0, boundarySize, 0),
@@ -170,8 +266,11 @@ class _ProfilePageState extends State<ProfilePage> {
                               children: snapshot.data!.docs.map((document) {
                                 return ProfilePageReview(
                                     subjectCode: document['subjectCode'],
-                                    subjectName:
-                                        _subjectNames[document['subjectCode']]!,
+                                    subjectName: _subjectNames.containsKey(
+                                            document['subjectCode'])
+                                        ? _subjectNames[
+                                            document['subjectCode']]!
+                                        : 'Loading Subject',
                                     review: Review(
                                         ratings: Rating(
                                             difficulty: Score(
@@ -194,5 +293,15 @@ class _ProfilePageState extends State<ProfilePage> {
                     ]))))
       ]),
     );
+  }
+
+  Future updateUserDetails(
+      {required String uid,
+      required String name,
+      required String major}) async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .update({'name': name, 'major': major});
   }
 }
