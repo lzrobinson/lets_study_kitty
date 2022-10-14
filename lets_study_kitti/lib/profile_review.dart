@@ -51,3 +51,41 @@ class _ProfileReviewState extends State<ProfileReview> {
     ]);
   }
 }
+
+class ProfilePageReview extends StatefulWidget {
+  final Review review;
+  final String subjectName;
+  final String subjectCode;
+
+  const ProfilePageReview(
+      {Key? key,
+      required this.review,
+      required this.subjectCode,
+      required this.subjectName})
+      : super(key: key);
+
+  @override
+  State<ProfilePageReview> createState() {
+    return _ProfilePageReviewState();
+  }
+
+  Review getReview() {
+    return review;
+  }
+}
+
+class _ProfilePageReviewState extends State<ProfilePageReview> {
+  @override
+  Widget build(BuildContext context) {
+    return ListView(shrinkWrap: true, children: [
+      Row(children: [
+        Text(widget.subjectCode + " - ",
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+        Text(widget.subjectName,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18))
+      ]),
+      const SizedBox(height: 20),
+      widget.review,
+    ]);
+  }
+}
