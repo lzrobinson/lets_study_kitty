@@ -26,16 +26,34 @@ class ReviewForm extends StatefulWidget {
 class _ReviewFormState extends State<ReviewForm> {
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
 
+  Map<String, List<String>> _userDetails = {};
   Map<String, String> _subjectCodes = {};
+  Map<String, String> _subjectNames = {};
   final _firestore = FirebaseFirestore.instance;
   bool isLoading = false;
   String forSubject = '';
+  String name = '';
+  String major = '';
 
   void addSubjectCodes() {
     _firestore.collection('subjects').get().then((QuerySnapshot querySnapshot) {
       setState(() {
         querySnapshot.docs.forEach((doc) {
           _subjectCodes[doc['subjectName']] = doc['subjectCode'];
+          _subjectNames[doc['subjectCode']] = doc['subjectName'];
+        });
+      });
+    });
+  }
+
+  // Get the majors and  given the userID
+  void addUserDetails() {
+    _firestore.collection('users').get().then((QuerySnapshot querySnapshot) {
+      setState(() {
+        querySnapshot.docs.forEach((doc) {
+          name = doc['name'];
+          major = doc['major'];
+          _userDetails[doc['uid']] = [name, major];
         });
       });
     });
@@ -44,6 +62,7 @@ class _ReviewFormState extends State<ReviewForm> {
   void initState() {
     super.initState();
     addSubjectCodes();
+    addUserDetails();
   }
 
   @override
@@ -712,6 +731,9 @@ class _ReviewFormState extends State<ReviewForm> {
       'interesting': interest,
       'reviewText': reviewText,
       'recommended': recommend,
+      'username': _userDetails[uid]![0],
+      'major': _userDetails[uid]![1],
+      'subjectName': _subjectNames[subjectCode],
     };
 
     await docUser.set(json);

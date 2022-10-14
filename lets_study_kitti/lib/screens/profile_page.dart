@@ -26,7 +26,6 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   String username = '';
   String major = '';
-  Map<String, String> _subjectNames = {};
 
   CircleAvatar profilePic = const CircleAvatar(
     radius: imgSize / 2,
@@ -37,7 +36,6 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     super.initState();
     getUserDetails();
-    addSubjectNames();
   }
 
   // Get the major and name given the userID
@@ -51,20 +49,6 @@ class _ProfilePageState extends State<ProfilePage> {
         querySnapshot.docs.forEach((doc) {
           username = doc['name'];
           major = doc['major'];
-        });
-      });
-    });
-  }
-
-  // Get the majors and  given the userID
-  void addSubjectNames() {
-    FirebaseFirestore.instance
-        .collection('subjects')
-        .get()
-        .then((QuerySnapshot querySnapshot) {
-      setState(() {
-        querySnapshot.docs.forEach((doc) {
-          _subjectNames[doc['subjectCode']] = doc['subjectName'];
         });
       });
     });
@@ -170,8 +154,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               children: snapshot.data!.docs.map((document) {
                                 return ProfilePageReview(
                                     subjectCode: document['subjectCode'],
-                                    subjectName:
-                                        _subjectNames[document['subjectCode']]!,
+                                    subjectName: document['subjectName'],
                                     review: Review(
                                         ratings: Rating(
                                             difficulty: Score(

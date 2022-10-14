@@ -26,20 +26,16 @@ class SubjectPage extends StatefulWidget {
 
 class _SubjectPageState extends State<SubjectPage> {
   final _firestore = FirebaseFirestore.instance;
-  Map<String, List<String>> _userDetails = {};
   var reviews = [];
   var reviewLen = 0;
   var recommendNum = 0;
   var handbookLink = '';
   var subjectName = '';
-  var name = '';
-  var majors = '';
   bool _loading = true;
 
   @override
   void initState() {
     super.initState();
-    addUserDetails();
     getSubjectName(widget.subjectCode);
     getRecommended(widget.subjectCode);
     getHandbookLink(widget.subjectCode);
@@ -95,19 +91,6 @@ class _SubjectPageState extends State<SubjectPage> {
     });
   }
 
-  // Get the majors and  given the userID
-  void addUserDetails() {
-    _firestore.collection('users').get().then((QuerySnapshot querySnapshot) {
-      setState(() {
-        querySnapshot.docs.forEach((doc) {
-          name = doc['name'];
-          majors = doc['major'];
-          _userDetails[doc['uid']] = [name, majors];
-        });
-      });
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return _loading
@@ -120,7 +103,7 @@ class _SubjectPageState extends State<SubjectPage> {
                 child: Container(
                   padding: const EdgeInsets.fromLTRB(
                       boundarySize + 2 * hOffset, 25, 0, 25),
-                  child: Text('${subjectName} - ${widget.subjectCode}',
+                  child: Text('${subjectName}- ${widget.subjectCode}',
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 30)),
                 ),
@@ -264,27 +247,24 @@ class _SubjectPageState extends State<SubjectPage> {
                                     children:
                                         snapshot.data!.docs.map((document) {
                                       return ProfileReview(
-                                          major: _userDetails.containsKey(
-                                                  document['userID'])
-                                              ? _userDetails[
-                                                  document['userID']]![1]
-                                              : 'Loading Major',
-                                          username: _userDetails.containsKey(
-                                                  document['userID'])
-                                              ? _userDetails[
-                                                  document['userID']]![0]
-                                              : 'Loading User',
+                                          major: document['major'],
+                                          username: document['username'],
                                           review: Review(
                                               ratings: Rating(
                                                   difficulty: Score(
-                                                      score:
-                                                          document['difficulty']),
-                                                  interest: Score(score: document['interesting']),
-                                                  teaching: Score(score: document['teachingQuality'])),
+                                                      score: document[
+                                                          'difficulty']),
+                                                  interest: Score(
+                                                      score: document[
+                                                          'interesting']),
+                                                  teaching: Score(
+                                                      score: document[
+                                                          'teachingQuality'])),
                                               reviewTxt: document['reviewText'],
                                               lecturer: document['lecturer'],
                                               likes: const Likes(likeCount: 0),
-                                              recommend: document['recommended'],
+                                              recommend:
+                                                  document['recommended'],
                                               year: document['year'],
                                               sem: document['semesterTaken'],
                                               stream: document['subjectType']));
