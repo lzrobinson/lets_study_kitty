@@ -25,4 +25,4 @@ jobs:
       - uses: bluefireteam/flutter-gh-pages@v7
         with:
           workingDir: lets_study_kitti
-          baseHref: /temp/
+          baseHref: /lets_study_kitty/
