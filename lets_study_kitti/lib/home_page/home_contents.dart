@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lets_study_kitti/routes.dart';
+import '../screens/profile_page.dart';
 
 class HomeContents extends StatelessWidget {
   const HomeContents({super.key});
@@ -89,13 +90,76 @@ class HomeContents extends StatelessWidget {
             const SizedBox(
               width: 30,
             ),
-            const _ContentIcon(
-                'assets/images/flame.png', 'Trending Reviews', Colors.lime),
+            MaterialButton(
+                child: _ContentIcon('assets/images/user.png', 'Profile',
+                    Colors.purple.shade100),
+                onPressed: () => {
+                      if (FirebaseAuth.instance.currentUser != null)
+                        {
+                          if (FirebaseAuth.instance.currentUser!.emailVerified)
+                            {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => ProfilePage(
+                                      userID: FirebaseAuth
+                                          .instance.currentUser!.uid)))
+                            }
+                          else
+                            {
+                              showDialog(
+                                  context: context,
+                                  barrierDismissible:
+                                      false, // disables popup to close if tapped outside popup (need a button to close)
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const Text(
+                                        "Cannot Access Profile",
+                                      ),
+                                      content: const Text(
+                                          "Must Verify Email to Access Profile"),
+                                      //buttons?
+                                      actions: <Widget>[
+                                        MaterialButton(
+                                          child: const Text("Close"),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          }, //closes popup
+                                        ),
+                                      ],
+                                    );
+                                  })
+                            }
+                        }
+                      else
+                        {
+                          showDialog(
+                              context: context,
+                              barrierDismissible:
+                                  false, // disables popup to close if tapped outside popup (need a button to close)
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text(
+                                    "Cannot Access Profile",
+                                  ),
+                                  content: const Text(
+                                      "Must Log In To Access Profile"),
+                                  //buttons?
+                                  actions: <Widget>[
+                                    MaterialButton(
+                                      child: const Text("Close"),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      }, //closes popup
+                                    ),
+                                  ],
+                                );
+                              })
+                        }
+                    }),
             const SizedBox(
               width: 30,
             ),
-            _ContentIcon(
-                'assets/images/user.png', 'Profile', Colors.purple.shade100),
+            const _ContentIcon(
+                'assets/images/flame.png', 'Trending Reviews', Colors.lime),
           ],
         ));
   }
