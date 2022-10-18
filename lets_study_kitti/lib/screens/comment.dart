@@ -15,7 +15,7 @@ class _CommentState extends State<Comment> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: MediaQuery.of(context).size.height * 0.4,
+        height: MediaQuery.of(context).size.height * 0.5,
         width: MediaQuery.of(context).size.width * 0.8,
         decoration: BoxDecoration(
             color: Colors.white,
@@ -27,29 +27,32 @@ class _CommentState extends State<Comment> {
                 blurRadius: 7,
               )
             ]),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const SizedBox(
-              height: 15,
-            ),
-            const HeadingBar('Comments'),
-            const SizedBox(
-              height: 15,
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.7,
-              child: const TextField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Add a comment',
-                    filled: true,
-                    fillColor: Color.fromARGB(102, 236, 155, 49)),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const SizedBox(
+                height: 15,
               ),
-            ),
-            const SizedBox(height: 15,),
-            const CommentBar('Bhavleen', 'Major of Data Science', 'Fully agree with everything you said!'),
-          ],
+              const HeadingBar('Comments'),
+              const SizedBox(
+                height: 15,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.7,
+                child: const TextField(
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Add a comment',
+                      filled: true,
+                      fillColor: Color.fromARGB(102, 236, 155, 49)),
+                ),
+              ),
+              const SizedBox(height: 15,),
+              const CommentBar('Bhavleen', 'Major of Data Science', 'Fully agree with everything you said!'),
+            ],
+          ),
         ));
   }
 }
