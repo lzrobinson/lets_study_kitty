@@ -264,6 +264,7 @@ class _SubjectPageState extends State<SubjectPage> {
                                     children:
                                         snapshot.data!.docs.map((document) {
                                       return ProfileReview(
+                                          reviewID: document.id,
                                           major: (document['userID'] != null)
                                               ? _userDetails.containsKey(
                                                       document['userID'])

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lets_study_kitti/review.dart' show Review;
 import 'package:lets_study_kitti/screens/profile_page.dart';
+import 'package:lets_study_kitti/screens/review_thread/page_contents.dart';
 
 const double imgSize = 40;
 
@@ -9,13 +10,15 @@ class ProfileReview extends StatefulWidget {
   final String username;
   final String major;
   final String userID;
+  final String reviewID;
 
   const ProfileReview(
       {Key? key,
       required this.review,
       required this.username,
       required this.major,
-      required this.userID})
+      required this.userID,
+      required this.reviewID})
       : super(key: key);
 
   @override
@@ -40,7 +43,8 @@ class _ProfileReviewState extends State<ProfileReview> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(shrinkWrap: true, children: [
+    return Container(
+        child: ListView(shrinkWrap: true, children: [
       Row(children: [
         profilePic,
         const SizedBox(width: 10),
@@ -61,8 +65,17 @@ class _ProfileReviewState extends State<ProfileReview> {
             })
       ]),
       const SizedBox(height: 20),
-      widget.review,
-    ]);
+      MaterialButton(
+          child: widget.review,
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => ReviewPageContents(
+                    review: widget.review,
+                    reviewID: widget.reviewID,
+                    username: widget.username,
+                    major: widget.major)));
+          })
+    ]));
   }
 }
 

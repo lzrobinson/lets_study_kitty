@@ -15,7 +15,7 @@ class ProfileBar extends StatelessWidget {
         children: [
           CircleAvatar(
               radius: 40,
-              backgroundImage: AssetImage('assets/images/sen-turner.png')),
+              backgroundImage: AssetImage('assets/images/user.png')),
           const SizedBox(
             width: 15,
           ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lets_study_kitti/screens/score.dart' show Score;
+import 'package:lets_study_kitti/score.dart' show Score;
 
 class Rating extends StatefulWidget {
   final Score difficulty;

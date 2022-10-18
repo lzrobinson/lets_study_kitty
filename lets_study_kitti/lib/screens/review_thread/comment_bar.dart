@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lets_study_kitti/screens/profile_bar.dart';
-
+import 'package:lets_study_kitti/screens/review_thread/profile_bar.dart';
 
 class CommentBar extends StatelessWidget {
   const CommentBar(this.name, this.major, this.comment);
@@ -9,6 +8,9 @@ class CommentBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: MediaQuery.of(context).size.width * 0.8,
+      padding: EdgeInsets.symmetric(
+          horizontal: MediaQuery.of(context).size.width * 0.05),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         ProfileBar(name, major),
         const SizedBox(
@@ -20,7 +22,9 @@ class CommentBar extends StatelessWidget {
             fontSize: 24,
           ),
         ),
-        const SizedBox(height: 15,),
+        const SizedBox(
+          height: 15,
+        ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 10.0),
           child: Container(
