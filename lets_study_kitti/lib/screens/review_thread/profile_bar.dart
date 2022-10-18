@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ProfileBar extends StatelessWidget {
-  const ProfileBar(this.name, this.major);
+  const ProfileBar(this.name, this.major, {Key? key}) : super(key: key);
   final String name, major;
 
   @override

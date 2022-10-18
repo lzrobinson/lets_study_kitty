@@ -161,9 +161,6 @@ class _CommentState extends State<Comment> {
                                   }
                                 })))
               ]),
-              const SizedBox(
-                height: 15,
-              ),
               StreamBuilder(
                   stream: FirebaseFirestore.instance
                       .collection('comments')
@@ -186,6 +183,9 @@ class _CommentState extends State<Comment> {
                       }).toList(),
                     );
                   }),
+              const SizedBox(
+                height: 15,
+              ),
             ],
           ),
         ));
