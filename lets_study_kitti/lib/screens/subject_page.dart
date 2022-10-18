@@ -111,7 +111,7 @@ class _SubjectPageState extends State<SubjectPage> {
   @override
   Widget build(BuildContext context) {
     return _loading
-        ? CircularProgressIndicator()
+        ? const CircularProgressIndicator()
         : Scaffold(
             appBar: const MyNavigationBar(),
             body: ListView(shrinkWrap: true, children: [
@@ -320,12 +320,12 @@ class _SubjectPageState extends State<SubjectPage> {
   }
 
   String getRecommendationImage(double rate) {
-    if (rate < 0.33) {
-      return 'images/frown.png';
-    } else if (rate < 0.66) {
-      return 'images/flat.png';
+    if (rate < 0.4) {
+      return 'assets/images/frown.png';
+    } else if (rate < 0.6) {
+      return 'assets/images/flat.png';
     } else {
-      return 'images/smile.png';
+      return 'assets/images/smile.png';
     }
   }
 }
