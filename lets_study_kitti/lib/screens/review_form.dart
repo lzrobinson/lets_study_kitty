@@ -186,16 +186,8 @@ class _ReviewFormState extends State<ReviewForm> {
                                         },
                                       ),
                                     ),
-                                    items: [
-                                      '2021',
-                                      '2020',
-                                      '2019',
-                                      '2018',
-                                      '2017',
-                                      '2016',
-                                      '2015',
-                                      '2014'
-                                    ]
+                                    items: List.generate(
+                                            100, (i) => (2022 - i).toString())
                                         .map((year) => DropdownMenuItem(
                                               alignment: AlignmentDirectional
                                                   .centerStart,
@@ -238,7 +230,13 @@ class _ReviewFormState extends State<ReviewForm> {
                                       hintText:
                                           'What semester was the subject taken',
                                     ),
-                                    items: ['Semester 1', 'Semester 2']
+                                    items: [
+                                      'Semester 1',
+                                      'Semester 2',
+                                      'Year-Long',
+                                      'Summer',
+                                      'Winter'
+                                    ]
                                         .map((sem) => DropdownMenuItem(
                                               alignment: AlignmentDirectional
                                                   .centerStart,
