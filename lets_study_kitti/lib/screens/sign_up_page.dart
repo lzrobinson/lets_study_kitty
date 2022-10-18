@@ -113,6 +113,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                         validator:
                                             FormBuilderValidators.compose([
                                           FormBuilderValidators.required(),
+                                          FormBuilderValidators.minLength(6),
                                         ]))),
                               ),
                               Container(
