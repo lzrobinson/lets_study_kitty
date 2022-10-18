@@ -19,7 +19,7 @@ class SubjectPage extends StatefulWidget {
   const SubjectPage({Key? key, required this.subjectCode}) : super(key: key);
 
   @override
-  _SubjectPageState createState() {
+  State<SubjectPage> createState() {
     return _SubjectPageState();
   }
 }
@@ -133,11 +133,14 @@ class _SubjectPageState extends State<SubjectPage> {
                   child: Row(
                       children: reviewLen != 0
                           ? [
+                              Image.asset('assets/images/smile.png',
+                                  height: 40, width: 40),
+                              /*
                               Image.asset(
                                   getRecommendationImage(
                                       recommendNum / reviewLen),
                                   height: imgSize / 2,
-                                  width: imgSize / 2),
+                                  width: imgSize / 2),*/
                               const SizedBox(width: 10),
                               Text(
                                   "${(recommendNum / reviewLen * 100).toStringAsFixed(1)}%",
