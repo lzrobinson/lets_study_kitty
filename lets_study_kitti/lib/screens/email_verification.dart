@@ -103,7 +103,7 @@ class _VerificationPageState extends State<VerificationPage> {
                           children: [
                             const SizedBox(height: 24),
                             const Text(
-                              'A verification email has been sent to the email provided',
+                              'A verification email has been sent to the email provided (check spam)',
                               style: labelFont,
                               textAlign: TextAlign.center,
                             ),
