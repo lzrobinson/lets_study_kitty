@@ -270,6 +270,9 @@ class _ProfilePageState extends State<ProfilePage> {
                               shrinkWrap: true,
                               children: snapshot.data!.docs.map((document) {
                                 return ProfilePageReview(
+                                    username: username,
+                                    major: major,
+                                    reviewID: document.id,
                                     subjectCode: document['subjectCode'],
                                     subjectName: _subjectNames.containsKey(
                                             document['subjectCode'])

@@ -83,12 +83,18 @@ class ProfilePageReview extends StatefulWidget {
   final Review review;
   final String subjectName;
   final String subjectCode;
+  final String reviewID;
+  final String username;
+  final String major;
 
   const ProfilePageReview(
       {Key? key,
       required this.review,
       required this.subjectCode,
-      required this.subjectName})
+      required this.subjectName,
+      required this.reviewID,
+      required this.username,
+      required this.major})
       : super(key: key);
 
   @override
@@ -112,7 +118,16 @@ class _ProfilePageReviewState extends State<ProfilePageReview> {
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18))
       ]),
       const SizedBox(height: 20),
-      widget.review,
+      MaterialButton(
+          child: widget.review,
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => ReviewPageContents(
+                    review: widget.review,
+                    reviewID: widget.reviewID,
+                    username: widget.username,
+                    major: widget.major)));
+          })
     ]);
   }
 }
