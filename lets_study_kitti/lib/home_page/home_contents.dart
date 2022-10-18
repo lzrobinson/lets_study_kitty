@@ -158,8 +158,33 @@ class HomeContents extends StatelessWidget {
             const SizedBox(
               width: 30,
             ),
-            const _ContentIcon(
-                'assets/images/flame.png', 'Trending Reviews', Colors.lime),
+            MaterialButton(
+                child: _ContentIcon(
+                    'assets/images/flame.png', 'Trending Reviews', Colors.lime),
+                onPressed: () => {
+                      showDialog(
+                          context: context,
+                          barrierDismissible:
+                              false, // disables popup to close if tapped outside popup (need a button to close)
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text(
+                                "Cannot See Trending Reviews",
+                              ),
+                              content: const Text(
+                                  "Functionality Not Yet Implemented :("),
+                              //buttons?
+                              actions: <Widget>[
+                                MaterialButton(
+                                  child: const Text("Close"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  }, //closes popup
+                                ),
+                              ],
+                            );
+                          })
+                    })
           ],
         ));
   }
