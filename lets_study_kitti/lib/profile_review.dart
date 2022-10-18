@@ -40,7 +40,6 @@ class _ProfileReviewState extends State<ProfileReview> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint(widget.userID);
     return ListView(shrinkWrap: true, children: [
       Row(children: [
         profilePic,
