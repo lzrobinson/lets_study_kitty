@@ -264,23 +264,32 @@ class _SubjectPageState extends State<SubjectPage> {
                                     children:
                                         snapshot.data!.docs.map((document) {
                                       return ProfileReview(
-                                          major: _userDetails.containsKey(
-                                                  document['userID'])
-                                              ? _userDetails[
-                                                  document['userID']]![1]
-                                              : 'Loading Major',
-                                          username: _userDetails.containsKey(
-                                                  document['userID'])
-                                              ? _userDetails[
-                                                  document['userID']]![0]
-                                              : 'Loading User',
+                                          major: (document['userID'] != null)
+                                              ? _userDetails.containsKey(
+                                                      document['userID'])
+                                                  ? _userDetails[
+                                                      document['userID']]![1]
+                                                  : 'Loading Major'
+                                              : document['major'],
+                                          username: (document['userID'] != null)
+                                              ? _userDetails.containsKey(
+                                                      document['userID'])
+                                                  ? _userDetails[
+                                                      document['userID']]![0]
+                                                  : 'Loading User'
+                                              : document['username'],
+                                          userID:
+                                              document['userID'] ?? 'discord',
                                           review: Review(
                                               ratings: Rating(
                                                   difficulty: Score(
-                                                      score:
-                                                          document['difficulty']),
-                                                  interest: Score(score: document['interesting']),
-                                                  teaching: Score(score: document['teachingQuality'])),
+                                                      score: document[
+                                                          'difficulty']),
+                                                  interest: Score(
+                                                      score: document[
+                                                          'interesting']),
+                                                  teaching:
+                                                      Score(score: document['teachingQuality'])),
                                               reviewTxt: document['reviewText'],
                                               lecturer: document['lecturer'],
                                               likes: const Likes(likeCount: 0),

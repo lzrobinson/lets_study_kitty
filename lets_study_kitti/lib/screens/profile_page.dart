@@ -89,64 +89,69 @@ class _ProfilePageState extends State<ProfilePage> {
           const SizedBox(width: boundarySize),
           Column(children: [
             profilePic,
-            MaterialButton(
-                child: _edit == true
-                    ? const Text('Save Edit', style: TextStyle(fontSize: 12))
-                    : const Text('Edit Profile',
-                        style: TextStyle(fontSize: 12)),
-                onPressed: () async {
-                  setState(() {
-                    _edit = !_edit;
-                  });
-                  if (!_edit) {
-                    final validationSuccess =
-                        _profileUpdateKey.currentState!.validate();
-                    if (validationSuccess == true) {
-                      _profileUpdateKey.currentState?.save();
-                      debugPrint(
-                          _profileUpdateKey.currentState?.value.toString());
+            (FirebaseAuth.instance.currentUser != null &&
+                    widget.userID == (FirebaseAuth.instance.currentUser!.uid))
+                ? MaterialButton(
+                    child: _edit == true
+                        ? const Text('Save Edit',
+                            style: TextStyle(fontSize: 12))
+                        : const Text('Edit Profile',
+                            style: TextStyle(fontSize: 12)),
+                    onPressed: () async {
                       setState(() {
-                        username = _profileUpdateKey
-                            .currentState!.fields['Username']!.value
-                            .toString();
-                        major = _profileUpdateKey
-                            .currentState!.fields['Major']!.value
-                            .toString();
+                        _edit = !_edit;
                       });
-                      await updateUserDetails(
-                        name: _profileUpdateKey
-                            .currentState!.fields['Username']!.value
-                            .toString(),
-                        major: _profileUpdateKey
-                            .currentState!.fields['Major']!.value
-                            .toString(),
-                        uid: FirebaseAuth.instance.currentUser!.uid,
-                      );
-                    } else {
-                      showDialog(
-                          context: context,
-                          barrierDismissible:
-                              false, // disables popup to close if tapped outside popup (need a button to close)
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: const Text(
-                                "Cannot Update Details",
-                              ),
-                              content: const Text("Validation Not Successful"),
-                              //buttons?
-                              actions: <Widget>[
-                                MaterialButton(
-                                  child: const Text("Close"),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  }, //closes popup
-                                ),
-                              ],
-                            );
+                      if (!_edit) {
+                        final validationSuccess =
+                            _profileUpdateKey.currentState!.validate();
+                        if (validationSuccess == true) {
+                          _profileUpdateKey.currentState?.save();
+                          debugPrint(
+                              _profileUpdateKey.currentState?.value.toString());
+                          setState(() {
+                            username = _profileUpdateKey
+                                .currentState!.fields['Username']!.value
+                                .toString();
+                            major = _profileUpdateKey
+                                .currentState!.fields['Major']!.value
+                                .toString();
                           });
-                    }
-                  }
-                })
+                          await updateUserDetails(
+                            name: _profileUpdateKey
+                                .currentState!.fields['Username']!.value
+                                .toString(),
+                            major: _profileUpdateKey
+                                .currentState!.fields['Major']!.value
+                                .toString(),
+                            uid: FirebaseAuth.instance.currentUser!.uid,
+                          );
+                        } else {
+                          showDialog(
+                              context: context,
+                              barrierDismissible:
+                                  false, // disables popup to close if tapped outside popup (need a button to close)
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text(
+                                    "Cannot Update Details",
+                                  ),
+                                  content:
+                                      const Text("Validation Not Successful"),
+                                  //buttons?
+                                  actions: <Widget>[
+                                    MaterialButton(
+                                      child: const Text("Close"),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      }, //closes popup
+                                    ),
+                                  ],
+                                );
+                              });
+                        }
+                      }
+                    })
+                : const SizedBox(height: 10),
           ]),
           Align(
               alignment: Alignment.centerLeft,
