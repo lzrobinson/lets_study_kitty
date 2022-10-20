@@ -177,7 +177,7 @@ class _ReviewFormState extends State<ReviewForm> {
                                           borderSide: BorderSide(),
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(20))),
-                                      suffix: IconButton(
+                                      suffixIcon: IconButton(
                                         icon: const Icon(Icons.close),
                                         onPressed: () {
                                           _formKey.currentState
@@ -219,7 +219,7 @@ class _ReviewFormState extends State<ReviewForm> {
                                               Radius.circular(20))),
                                       labelText: 'Semester Taken',
                                       labelStyle: labelFont,
-                                      suffix: IconButton(
+                                      suffixIcon: IconButton(
                                         icon: const Icon(Icons.close),
                                         onPressed: () {
                                           _formKey.currentState
@@ -295,7 +295,7 @@ class _ReviewFormState extends State<ReviewForm> {
                                               Radius.circular(20))),
                                       labelText: 'Stream',
                                       labelStyle: labelFont,
-                                      suffix: IconButton(
+                                      suffixIcon: IconButton(
                                         icon: const Icon(Icons.close),
                                         onPressed: () {
                                           _formKey
@@ -476,7 +476,7 @@ class _ReviewFormState extends State<ReviewForm> {
                                     Container(
                                       alignment: Alignment.centerLeft,
                                       child: Container(
-                                        width: boxWidth / 2,
+                                        width: boxWidth / 1.5,
                                         height: boxHeight,
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 20),
@@ -492,10 +492,19 @@ class _ReviewFormState extends State<ReviewForm> {
                                               FormBuilderValidators.required(
                                                   errorText: "required"),
                                           name: 'Recommended',
-                                          decoration: const InputDecoration(
-                                            enabledBorder: UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: boxColor)),
+                                          decoration: InputDecoration(
+                                            enabledBorder:
+                                                const UnderlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                        color: boxColor)),
+                                            suffixIcon: IconButton(
+                                              icon: const Icon(Icons.close),
+                                              onPressed: () {
+                                                _formKey.currentState
+                                                    ?.fields['Recommended']
+                                                    ?.reset();
+                                              },
+                                            ),
                                           ),
                                           items: ['Yes', 'No']
                                               .map((recommend) =>
