@@ -103,6 +103,7 @@ class _LoginPageState extends State<LoginPage> {
                                           BorderRadius.all(Radius.circular(20)),
                                     ),
                                     child: FormBuilderTextField(
+                                        obscureText: true,
                                         cursorColor: Colors.black,
                                         name: 'password',
                                         decoration: const InputDecoration(
