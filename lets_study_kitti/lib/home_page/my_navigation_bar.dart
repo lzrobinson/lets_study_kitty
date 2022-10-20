@@ -73,7 +73,7 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
                       cursorColor: Colors.black,
                       decoration: const InputDecoration(
                           border: OutlineInputBorder(),
-                          hintText: 'Search',
+                          hintText: 'Search Subject',
                           focusedBorder: OutlineInputBorder()));
                 },
                 onSelected: (String value) => Navigator.of(context).push(
