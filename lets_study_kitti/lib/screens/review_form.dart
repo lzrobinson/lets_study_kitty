@@ -13,7 +13,6 @@ const boxWidth = 250.0;
 const boxHeight = 50.0;
 const sectionFont = TextStyle(fontWeight: FontWeight.bold, fontSize: 24);
 const labelFont = TextStyle(fontSize: 16);
-bool subjectSelected = false;
 
 class ReviewForm extends StatefulWidget {
   const ReviewForm({Key? key}) : super(key: key);
@@ -26,6 +25,7 @@ class ReviewForm extends StatefulWidget {
 
 class _ReviewFormState extends State<ReviewForm> {
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
+  bool subjectSelected = false;
 
   Map<String, String> _subjectCodes = {};
   final _firestore = FirebaseFirestore.instance;
