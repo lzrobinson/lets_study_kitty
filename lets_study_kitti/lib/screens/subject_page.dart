@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lets_study_kitti/heading_bar.dart';
 import 'package:lets_study_kitti/home_page/my_navigation_bar.dart';
 import 'package:lets_study_kitti/likes.dart' show Likes;
 import 'package:lets_study_kitti/profile_review.dart' show ProfileReview;
@@ -169,30 +170,7 @@ class _SubjectPageState extends State<SubjectPage> {
                               bottom: vOffset),
                           child: Column(
                             children: [
-                              Row(
-                                children: const [
-                                  SizedBox(
-                                    width: 50,
-                                    height: 30,
-                                    child: DecoratedBox(
-                                      decoration:
-                                          BoxDecoration(color: Colors.orange),
-                                    ),
-                                  ),
-                                  Text('  Subject Information  ',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18)),
-                                  SizedBox(
-                                    width: 690,
-                                    height: 30,
-                                    child: DecoratedBox(
-                                      decoration:
-                                          BoxDecoration(color: Colors.orange),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                              HeadingBar('Subject Information'),
                               Container(
                                 padding:
                                     const EdgeInsets.fromLTRB(0, vOffset, 0, 0),
@@ -221,30 +199,7 @@ class _SubjectPageState extends State<SubjectPage> {
                               top: vOffset,
                               bottom: vOffset),
                           child: Column(children: [
-                            Row(
-                              children: const [
-                                SizedBox(
-                                  width: 50,
-                                  height: 30,
-                                  child: DecoratedBox(
-                                    decoration:
-                                        BoxDecoration(color: Colors.orange),
-                                  ),
-                                ),
-                                Text('  Reviews  ',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18)),
-                                SizedBox(
-                                  width: 780,
-                                  height: 30,
-                                  child: DecoratedBox(
-                                    decoration:
-                                        BoxDecoration(color: Colors.orange),
-                                  ),
-                                ),
-                              ],
-                            ),
+                            HeadingBar('Reviews'),
                             const SizedBox(height: 10),
                             StreamBuilder(
                                 stream: FirebaseFirestore.instance
