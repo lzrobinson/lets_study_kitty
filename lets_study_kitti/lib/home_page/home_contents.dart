@@ -25,6 +25,7 @@ class HomeContents extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             MaterialButton(
+                key: Key('addReviewButton'),
                 child: const _ContentIcon(
                     'assets/images/add.png', 'Add Review', Colors.deepOrange),
                 onPressed: () => {
