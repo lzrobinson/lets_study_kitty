@@ -83,18 +83,21 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
                             SubjectPage(subjectCode: _subjectCodes[value]!)))),
           ),
           FirebaseAuth.instance.currentUser == null
-              ? MaterialButton(
-                  child: Row(
-                    children: <Widget>[
-                      Image.asset('assets/images/user.png',
-                          height: 20, width: 20),
-                      const Text(' Login/Sign Up'),
-                    ],
+              ? Row(children: [
+                  SizedBox(width: 40),
+                  MaterialButton(
+                    child: Row(
+                      children: <Widget>[
+                        Image.asset('assets/images/user.png',
+                            height: 20, width: 20),
+                        const Text(' Login/Sign Up'),
+                      ],
+                    ),
+                    onPressed: () {
+                      Navigator.pushNamed(context, Routes.loginPage);
+                    },
                   ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, Routes.loginPage);
-                  },
-                )
+                ])
               : Row(children: [
                   MaterialButton(
                     child: Row(

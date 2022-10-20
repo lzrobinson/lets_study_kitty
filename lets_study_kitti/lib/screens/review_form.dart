@@ -321,7 +321,7 @@ class _ReviewFormState extends State<ReviewForm> {
                                   child: Container(
                                       padding: const EdgeInsets.fromLTRB(
                                           hOffset, 25, 0, 25),
-                                      child: const Text('Subject Scores',
+                                      child: const Text('Subject Scores (0-10)',
                                           style: sectionFont))),
                               Container(
                                   padding: const EdgeInsets.only(
