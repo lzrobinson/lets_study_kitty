@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:lets_study_kitti/routes.dart';
 import 'package:lets_study_kitti/screens/review_thread/review_thread_review.dart';
 
 import 'comment_bar.dart';
@@ -109,16 +110,53 @@ class _CommentState extends State<Comment> {
                                   if (validationSuccess == true) {
                                     if (FirebaseAuth.instance.currentUser !=
                                         null) {
-                                      _formKey.currentState?.save();
-                                      debugPrint(_formKey.currentState?.value
-                                          .toString());
-                                      await uploadComment(
-                                          commentTxt: _formKey.currentState!
-                                              .fields['Comment']!.value
-                                              .toString(),
-                                          reviewID: widget.reviewID,
-                                          userID: FirebaseAuth
-                                              .instance.currentUser!.uid);
+                                      if (FirebaseAuth.instance.currentUser!
+                                          .emailVerified) {
+                                        _formKey.currentState?.save();
+                                        debugPrint(_formKey.currentState?.value
+                                            .toString());
+                                        await uploadComment(
+                                            commentTxt: _formKey.currentState!
+                                                .fields['Comment']!.value
+                                                .toString(),
+                                            reviewID: widget.reviewID,
+                                            userID: FirebaseAuth
+                                                .instance.currentUser!.uid);
+                                      } else {
+                                        showDialog(
+                                            context: context,
+                                            barrierDismissible:
+                                                false, // disables popup to close if tapped outside popup (need a button to close)
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                title: const Text(
+                                                  "Cannot Access Profile",
+                                                ),
+                                                content: const Text(
+                                                    "Must Verify Email to Access Profile"),
+                                                //buttons?
+                                                actions: <Widget>[
+                                                  MaterialButton(
+                                                    child: const Text(
+                                                        "Verify Email"),
+                                                    onPressed: () {
+                                                      Navigator.pushNamed(
+                                                          context,
+                                                          Routes
+                                                              .verifyEmailPage);
+                                                    }, //closes popup
+                                                  ),
+                                                  MaterialButton(
+                                                    child: const Text("Close"),
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    }, //closes popup
+                                                  ),
+                                                ],
+                                              );
+                                            });
+                                      }
                                       setState(() {
                                         isLoading = false;
                                       });
@@ -140,6 +178,14 @@ class _CommentState extends State<Comment> {
                                                   "Must Login to Submit a Comment"),
                                               //buttons?
                                               actions: <Widget>[
+                                                MaterialButton(
+                                                  child: const Text(
+                                                      "Log In/Sign Up"),
+                                                  onPressed: () {
+                                                    Navigator.pushNamed(context,
+                                                        Routes.loginPage);
+                                                  }, //closes popup
+                                                ),
                                                 MaterialButton(
                                                   child: const Text("Close"),
                                                   onPressed: () {

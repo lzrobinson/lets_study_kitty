@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lets_study_kitti/routes.dart';
+import 'package:lets_study_kitti/screens/profile_page.dart';
 import 'package:lets_study_kitti/screens/subject_page.dart';
 
 const boxColor = Color.fromARGB(255, 254, 244, 225);
@@ -73,7 +74,7 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
                       cursorColor: Colors.black,
                       decoration: const InputDecoration(
                           border: OutlineInputBorder(),
-                          hintText: 'Search Subject',
+                          hintText: 'Search Subjects',
                           focusedBorder: OutlineInputBorder()));
                 },
                 onSelected: (String value) => Navigator.of(context).push(
@@ -81,26 +82,80 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
                         builder: (context) =>
                             SubjectPage(subjectCode: _subjectCodes[value]!)))),
           ),
-          MaterialButton(
-            child: Row(
-              children: <Widget>[
-                Image.asset('assets/images/user.png', height: 20, width: 20),
-                const Text(' Login/Sign Up'),
-              ],
-            ),
-            onPressed: () {
-              Navigator.pushNamed(context, Routes.loginPage);
-            },
-          ),
-          const SizedBox(width: 5.0),
-          MaterialButton(
-              child: Row(
-                children: <Widget>[
-                  Image.asset('assets/images/enter.png', height: 20, width: 20),
-                  const Text(' Sign Out'),
-                ],
-              ),
-              onPressed: () => FirebaseAuth.instance.signOut())
+          FirebaseAuth.instance.currentUser == null
+              ? MaterialButton(
+                  child: Row(
+                    children: <Widget>[
+                      Image.asset('assets/images/user.png',
+                          height: 20, width: 20),
+                      const Text(' Login/Sign Up'),
+                    ],
+                  ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, Routes.loginPage);
+                  },
+                )
+              : Row(children: [
+                  MaterialButton(
+                    child: Row(
+                      children: <Widget>[
+                        Image.asset('assets/images/user.png',
+                            height: 20, width: 20),
+                        const Text(' View Profile'),
+                      ],
+                    ),
+                    onPressed: () {
+                      if (FirebaseAuth.instance.currentUser!.emailVerified) {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => ProfilePage(
+                                userID:
+                                    FirebaseAuth.instance.currentUser!.uid)));
+                      } else {
+                        showDialog(
+                            context: context,
+                            barrierDismissible:
+                                false, // disables popup to close if tapped outside popup (need a button to close)
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: const Text(
+                                  "Cannot Access Profile",
+                                ),
+                                content: const Text(
+                                    "Must Verify Email to Access Profile"),
+                                //buttons?
+                                actions: <Widget>[
+                                  MaterialButton(
+                                    child: const Text("Verify Email"),
+                                    onPressed: () {
+                                      Navigator.pushNamed(
+                                          context, Routes.verifyEmailPage);
+                                    }, //closes popup
+                                  ),
+                                  MaterialButton(
+                                    child: const Text("Close"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    }, //closes popup
+                                  ),
+                                ],
+                              );
+                            });
+                      }
+                    },
+                  ),
+                  MaterialButton(
+                      child: Row(
+                        children: <Widget>[
+                          Image.asset('assets/images/enter.png',
+                              height: 20, width: 20),
+                          const Text(' Sign Out'),
+                        ],
+                      ),
+                      onPressed: () => {
+                            FirebaseAuth.instance.signOut(),
+                            Navigator.pushNamed(context, Routes.homePage)
+                          })
+                ])
         ],
       ),
     );

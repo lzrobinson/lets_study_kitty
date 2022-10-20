@@ -52,6 +52,13 @@ class HomeContents extends StatelessWidget {
                                       //buttons?
                                       actions: <Widget>[
                                         MaterialButton(
+                                          child: const Text("Verify Email"),
+                                          onPressed: () {
+                                            Navigator.pushNamed(context,
+                                                Routes.verifyEmailPage);
+                                          }, //closes popup
+                                        ),
+                                        MaterialButton(
                                           child: const Text("Close"),
                                           onPressed: () {
                                             Navigator.of(context).pop();
@@ -77,6 +84,13 @@ class HomeContents extends StatelessWidget {
                                       "Must Log In To Submit a Review"),
                                   //buttons?
                                   actions: <Widget>[
+                                    MaterialButton(
+                                      child: const Text("Log In/Sign Up"),
+                                      onPressed: () {
+                                        Navigator.pushNamed(
+                                            context, Routes.loginPage);
+                                      }, //closes popup
+                                    ),
                                     MaterialButton(
                                       child: const Text("Close"),
                                       onPressed: () {
@@ -121,6 +135,13 @@ class HomeContents extends StatelessWidget {
                                       //buttons?
                                       actions: <Widget>[
                                         MaterialButton(
+                                          child: const Text("Verify Email"),
+                                          onPressed: () {
+                                            Navigator.pushNamed(context,
+                                                Routes.verifyEmailPage);
+                                          }, //closes popup
+                                        ),
+                                        MaterialButton(
                                           child: const Text("Close"),
                                           onPressed: () {
                                             Navigator.of(context).pop();
@@ -146,6 +167,13 @@ class HomeContents extends StatelessWidget {
                                       "Must Log In To Access Profile"),
                                   //buttons?
                                   actions: <Widget>[
+                                    MaterialButton(
+                                      child: const Text("Log In/Sign Up"),
+                                      onPressed: () {
+                                        Navigator.pushNamed(
+                                            context, Routes.loginPage);
+                                      }, //closes popup
+                                    ),
                                     MaterialButton(
                                       child: const Text("Close"),
                                       onPressed: () {
