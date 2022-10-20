@@ -61,6 +61,7 @@ class _LoginPageState extends State<LoginPage> {
                                     horizontal: hOffset, vertical: vOffset),
                                 alignment: Alignment.centerLeft,
                                 child: Container(
+                                    key: Key('emailInput'),
                                     height: boxHeight,
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 20),
@@ -92,6 +93,7 @@ class _LoginPageState extends State<LoginPage> {
                                     bottom: vOffset),
                                 alignment: Alignment.centerLeft,
                                 child: Container(
+                                    key: Key('passwordInput'),
                                     height: boxHeight,
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 20),

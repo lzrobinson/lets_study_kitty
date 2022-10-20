@@ -61,6 +61,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     horizontal: hOffset, vertical: vOffset),
                                 alignment: Alignment.centerLeft,
                                 child: Container(
+                                    key: const Key('emailInput'),
                                     height: boxHeight,
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 20),
@@ -92,6 +93,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     bottom: vOffset),
                                 alignment: Alignment.centerLeft,
                                 child: Container(
+                                    key: Key('passwordInput'),
                                     height: boxHeight,
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 20),
@@ -123,6 +125,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                       bottom: vOffset),
                                   alignment: Alignment.centerLeft,
                                   child: Container(
+                                      key: Key('passwordCInput'),
                                       height: boxHeight,
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 20),
@@ -160,6 +163,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     bottom: vOffset),
                                 alignment: Alignment.centerLeft,
                                 child: Container(
+                                    key: Key('nameInput'),
                                     height: boxHeight,
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 20),
@@ -190,6 +194,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     bottom: vOffset),
                                 alignment: Alignment.centerLeft,
                                 child: Container(
+                                    key: Key('majorInput'),
                                     height: boxHeight,
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 20),

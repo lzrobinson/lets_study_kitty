@@ -91,6 +91,7 @@ class HomeContents extends StatelessWidget {
               width: 30,
             ),
             MaterialButton(
+                key: Key('profileButton'),
                 child: _ContentIcon('assets/images/user.png', 'Profile',
                     Colors.purple.shade100),
                 onPressed: () => {
