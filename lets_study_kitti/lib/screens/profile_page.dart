@@ -40,7 +40,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   CircleAvatar profilePic = const CircleAvatar(
     radius: imgSize / 2,
-    backgroundImage: NetworkImage('assets/images/user.png'),
+    backgroundImage: AssetImage('assets/images/user.png'),
   );
 
   @override
