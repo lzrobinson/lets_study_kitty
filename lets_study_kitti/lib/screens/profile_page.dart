@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:lets_study_kitti/profile_review.dart';
+import '../heading_bar.dart';
 import '../home_page/my_navigation_bar.dart';
 import '../likes.dart';
 import '../rating.dart';
@@ -173,10 +174,12 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Container(
                       child: Column(children: [
                     Container(
-                        width: 1000, child: Text(username, style: labelFont)),
+                        width: MediaQuery.of(context).size.width * 0.5, 
+                        child: Text(username, style: labelFont)),
                     SizedBox(height: vOffset),
                     Container(
-                        width: 1000, child: Text(major, style: labelFont)),
+                        width: MediaQuery.of(context).size.width * 0.5, 
+                        child: Text(major, style: labelFont)),
                   ])))
               : Container(
                   alignment: Alignment.centerLeft,
@@ -226,33 +229,14 @@ class _ProfilePageState extends State<ProfilePage> {
                 const EdgeInsets.only(left: boundarySize, right: boundarySize),
             child: Card(
                 child: Container(
+
                     padding: const EdgeInsets.only(
                         left: hOffset,
                         right: hOffset,
                         top: vOffset,
                         bottom: vOffset),
                     child: Column(children: [
-                      Row(
-                        children: const [
-                          SizedBox(
-                            width: 50,
-                            height: 30,
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(color: Colors.orange),
-                            ),
-                          ),
-                          Text('  Reviews  ',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 18)),
-                          SizedBox(
-                            width: 780,
-                            height: 30,
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(color: Colors.orange),
-                            ),
-                          ),
-                        ],
-                      ),
+                      const HeadingBar('Review'),
                       const SizedBox(height: 10),
                       StreamBuilder(
                           stream: FirebaseFirestore.instance
