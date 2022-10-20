@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
         Routes.profilePage: (BuildContext context) =>
             const ProfilePage(userID: 'RNgLZFcrYfdQgLHbiKI7I4JCmMF2'),
       },
-      title: 'Flutter FormBuilder Demo',
+      title: 'Lets Study Kitty',
       debugShowCheckedModeBanner: false,
       localizationsDelegates: const [
         FormBuilderLocalizations.delegate,
