@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:uuid/uuid.dart';
 
-final signInButtonFinder = find.text("Login/Sign Up");
+final signInButtonFinder = find.text(' Login/Sign Up');
 final signUpButtonFinder = find.text("don't have an account? Sign Up");
 
 final emailInputFinder = find.descendant(
@@ -26,9 +26,7 @@ final passwordCInputFinder = find.descendant(
 
 final logInButtonFinder = find.text("LOG IN");
 final createAccountButtonFinder = find.text("CREATE ACCOUNT");
-
-//final emailInputFinder = find.byKey(Key("emailInput"));
-
+/*
 class AuthCreds {
   final String email;
   final String password;
@@ -38,9 +36,10 @@ class AuthCreds {
   static AuthCreds generate() {
     return AuthCreds('${Uuid().v1()}@example.com', "thisisapassword");
   }
-}
+}*/
 
 extension WidgetTesterExtension on WidgetTester {
+  /*
   Future enterAuthCreds(AuthCreds creds) async {
     await tap(emailInputFinder);
     await pumpAndSettle();
@@ -75,74 +74,81 @@ extension WidgetTesterExtension on WidgetTester {
   Future startApp() async {
     app.main();
     await pumpAndSettle();
-  }
+  }*/
 
   Future signOut() async {
-    await tap(find.text("Sign Out"));
+    await tap(find.text(" Sign Out"));
     await pumpAndSettle();
-  }
-
-  Future goToLoginPage() async {
-    await tap(signInButtonFinder);
-    await pumpAndSettle();
-  }
-
-  Future goToSignUpPage() async {
-    await tap(signInButtonFinder);
-    await tap(signUpButtonFinder);
-    await pumpAndSettle();
-  }
-
-  Future finishAuthFlow() async {
-    await startApp();
-
-    await goToSignUpPage();
-
-    final creds = AuthCreds.generate();
-    await register(creds);
-    await signIn(creds);
   }
 
   Future goToProfileScreen() async {
-    await tap(find.byKey(Key("profileButton")));
+    await tap(find.byKey(ValueKey("profileButton")));
 
     await pumpAndSettle();
   }
 
   Future goToAddReviewScreen() async {
-    await tap(find.byKey(Key("addReviewButton")));
+    await tap(find.byKey(ValueKey("addReviewButton")));
     await pumpAndSettle();
+  }
+
+  Future logIn({required String email, required String password}) async {
+    await tap(signInButtonFinder);
+    await pumpAndSettle();
+    await pump(Duration(seconds: 5));
+    await pump(Duration(seconds: 5));
+    await pump(Duration(seconds: 5));
+
+    await tap(emailInputFinder);
+    await pumpAndSettle();
+    await enterText(emailInputFinder, email);
+    await pumpAndSettle();
+
+    await tap(passwordInputFinder);
+    await pumpAndSettle();
+    await enterText(passwordInputFinder, password);
+    await pumpAndSettle();
+
+    await tap(logInButtonFinder);
   }
 }
 
 void main() {
-  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized()
+      as IntegrationTestWidgetsFlutterBinding;
 
-  final username = '${Uuid().v1()}@example.com';
+  binding.framePolicy = LiveTestWidgetsFlutterBindingFramePolicy.fullyLive;
+
+  final email = '${Uuid().v1()}@example.com';
   final password = 'thisisapassword';
+
+  final verifiedEmail = 'senturner@gmail.com';
+  final verifiedPassword = 'demons';
 
   testWidgets(
     'Starter page display correctly',
     (WidgetTester tester) async {
       app.main();
+
       await tester.pumpAndSettle();
 
-      expect(tester.firstElement(signInButtonFinder), isNotNull);
-      expect(tester.firstElement(find.byKey(Key("profileButton"))), isNotNull);
-      expect(
-          tester.firstElement(find.byKey(Key("addReviewButton"))), isNotNull);
+      await Future.delayed(Duration(seconds: 10));
+      //expect(tester.firstElement(signInButtonFinder), isNotNull);
+      expect(tester.firstElement(find.byKey(ValueKey("profileButton"))),
+          isNotNull);
+      expect(tester.firstElement(find.byKey(ValueKey("addReviewButton"))),
+          isNotNull);
     },
   );
-/*
+
   testWidgets(
     'Can navigate out of the starter page',
     (WidgetTester tester) async {
       app.main();
       await tester.pumpAndSettle();
+      await Future.delayed(Duration(seconds: 10));
 
       await tester.tap(signInButtonFinder);
-      await tester.pumpAndSettle();
-      await tester.pageBack();
       await tester.pumpAndSettle();
     },
   );
@@ -153,6 +159,7 @@ void main() {
       app.main();
 
       await tester.pumpAndSettle();
+      await Future.delayed(Duration(seconds: 5));
 
       await tester.tap(signInButtonFinder);
       await tester.pumpAndSettle();
@@ -162,7 +169,7 @@ void main() {
 
       await tester.tap(emailInputFinder);
       await tester.pumpAndSettle();
-      await tester.enterText(emailInputFinder, username);
+      await tester.enterText(emailInputFinder, email);
       await tester.pumpAndSettle();
 
       await tester.tap(passwordInputFinder);
@@ -190,6 +197,7 @@ void main() {
       await tester.pump(Duration(seconds: 5));
       await tester.pump(Duration(seconds: 5));
       await tester.pump(Duration(seconds: 5));
+      await tester.signOut();
     },
   );
 
@@ -199,7 +207,7 @@ void main() {
       app.main();
 
       await tester.pumpAndSettle();
-
+      await Future.delayed(Duration(seconds: 5));
       await tester.tap(signInButtonFinder);
       await tester.pumpAndSettle();
       await tester.pump(Duration(seconds: 5));
@@ -208,12 +216,12 @@ void main() {
 
       await tester.tap(emailInputFinder);
       await tester.pumpAndSettle();
-      await tester.enterText(emailInputFinder, username);
+      await tester.enterText(emailInputFinder, verifiedEmail);
       await tester.pumpAndSettle();
 
       await tester.tap(passwordInputFinder);
       await tester.pumpAndSettle();
-      await tester.enterText(passwordInputFinder, password);
+      await tester.enterText(passwordInputFinder, verifiedPassword);
       await tester.pumpAndSettle();
 
       await tester.tap(logInButtonFinder);
@@ -225,13 +233,20 @@ void main() {
 
       expect(tester.widget(find.text("Edit Profile")), isNotNull);
 
-      await tester.tap(find.text("Sign Out"));
+      await tester.signOut();
       await tester.pumpAndSettle();
     },
   );
 
   testWidgets('Can add a review', (tester) async {
-    await tester.finishAuthFlow();
+    app.main();
+
+    await tester.pumpAndSettle();
+    await Future.delayed(Duration(seconds: 5));
+
+    await tester.logIn(email: verifiedEmail, password: verifiedPassword);
+
+    await Future.delayed(Duration(seconds: 5));
 
     await tester.goToAddReviewScreen();
 
@@ -239,11 +254,17 @@ void main() {
   });
 
   testWidgets('Can view profile', (tester) async {
-    await tester.finishAuthFlow();
+    app.main();
+
+    await tester.pumpAndSettle();
+    await Future.delayed(Duration(seconds: 5));
+
+    await tester.logIn(email: verifiedEmail, password: verifiedPassword);
+
+    await Future.delayed(Duration(seconds: 5));
 
     await tester.goToProfileScreen();
 
     await tester.signOut();
   });
-  */
 }

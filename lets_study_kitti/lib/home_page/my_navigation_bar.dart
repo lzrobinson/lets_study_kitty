@@ -86,6 +86,7 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
               ? Row(children: [
                   SizedBox(width: 40),
                   MaterialButton(
+                    key: Key('signUpButton'),
                     child: Row(
                       children: <Widget>[
                         Image.asset('assets/images/user.png',

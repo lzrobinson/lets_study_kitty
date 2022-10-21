@@ -274,6 +274,7 @@ class _LoginPageState extends State<LoginPage> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: hOffset),
                                   child: MaterialButton(
+                                      key: Key('signUpButton'),
                                       child: const Align(
                                           alignment: Alignment.centerLeft,
                                           child: Text(
