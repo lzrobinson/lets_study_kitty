@@ -56,6 +56,7 @@ class _SubjectPageState extends State<SubjectPage> {
         .where('subjectCode', isEqualTo: subjectCode)
         .get()
         .then((QuerySnapshot querySnapshot) {
+      if (!mounted) return;
       setState(() {
         querySnapshot.docs.forEach((doc) {
           subjectName = doc['subjectName'];
@@ -71,6 +72,7 @@ class _SubjectPageState extends State<SubjectPage> {
         .where('subjectCode', isEqualTo: subjectCode)
         .get()
         .then((QuerySnapshot querySnapshot) {
+      if (!mounted) return;
       setState(() {
         querySnapshot.docs.forEach((doc) {
           handbookLink = doc['link'];
@@ -85,6 +87,7 @@ class _SubjectPageState extends State<SubjectPage> {
         .where('subjectCode', isEqualTo: subjectCode)
         .get()
         .then((QuerySnapshot querySnapshot) {
+      if (!mounted) return;
       setState(() {
         querySnapshot.docs.forEach((doc) {
           if (doc['recommended'] == 'Yes') {
@@ -99,6 +102,7 @@ class _SubjectPageState extends State<SubjectPage> {
   // Get the majors and  given the userID
   void addUserDetails() {
     _firestore.collection('users').get().then((QuerySnapshot querySnapshot) {
+      if (!mounted) return;
       setState(() {
         querySnapshot.docs.forEach((doc) {
           name = doc['name'];

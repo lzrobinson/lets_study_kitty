@@ -57,6 +57,7 @@ class _ProfilePageState extends State<ProfilePage> {
         .where('uid', isEqualTo: widget.userID)
         .get()
         .then((QuerySnapshot querySnapshot) {
+      if (!mounted) return;
       setState(() {
         querySnapshot.docs.forEach((doc) {
           username = doc['name'];
@@ -174,11 +175,11 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Container(
                       child: Column(children: [
                     Container(
-                        width: MediaQuery.of(context).size.width * 0.5, 
+                        width: MediaQuery.of(context).size.width * 0.5,
                         child: Text(username, style: labelFont)),
                     SizedBox(height: vOffset),
                     Container(
-                        width: MediaQuery.of(context).size.width * 0.5, 
+                        width: MediaQuery.of(context).size.width * 0.5,
                         child: Text(major, style: labelFont)),
                   ])))
               : Container(
@@ -229,7 +230,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 const EdgeInsets.only(left: boundarySize, right: boundarySize),
             child: Card(
                 child: Container(
-
                     padding: const EdgeInsets.only(
                         left: hOffset,
                         right: hOffset,

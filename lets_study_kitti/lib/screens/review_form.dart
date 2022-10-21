@@ -34,6 +34,7 @@ class _ReviewFormState extends State<ReviewForm> {
 
   void addSubjectCodes() {
     _firestore.collection('subjects').get().then((QuerySnapshot querySnapshot) {
+      if (!mounted) return;
       setState(() {
         querySnapshot.docs.forEach((doc) {
           _subjectCodes[doc['subjectName']] = doc['subjectCode'];

@@ -27,6 +27,7 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
 
   void addSubjectCodes() {
     _firestore.collection('subjects').get().then((QuerySnapshot querySnapshot) {
+      if (!mounted) return;
       setState(() {
         querySnapshot.docs.forEach((doc) {
           _subjectCodes[doc['subjectName']] = doc['subjectCode'];
@@ -86,7 +87,7 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
               ? Row(children: [
                   SizedBox(width: 40),
                   MaterialButton(
-                    key: Key('signUpButton'),
+                    key: Key('signInButton'),
                     child: Row(
                       children: <Widget>[
                         Image.asset('assets/images/user.png',
