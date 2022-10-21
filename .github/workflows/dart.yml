@@ -23,9 +23,13 @@ jobs:
           channel: 'stable'
       - run: flutter --version
 
-      ### - name: "Run Flutter Driver tests"
-        ###run: |
-          ### flutter drive --driver=test_driver/integration_test.dart --target=integration_test/app_test.dart
+      - name: "Run Flutter Driver tests"
+        run:
+          chromedriver --port=4444
+          flutter drive
+            --driver=test_driver/integration_test.dart \
+            --target=integration_test/app_test.dart \
+            -d chrome
 
       - uses: bluefireteam/flutter-gh-pages@v7
         with:
