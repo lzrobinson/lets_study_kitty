@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lets_study_kitti/Screens/review_form.dart' show ReviewForm;
+import 'package:lets_study_kitti/screens/review_form.dart' show ReviewForm;
 import 'package:lets_study_kitti/home_page/my_navigation_bar.dart';
 
 class ReviewFormPage extends StatelessWidget {
