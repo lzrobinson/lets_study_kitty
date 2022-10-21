@@ -133,7 +133,7 @@ void main() {
           tester.firstElement(find.byKey(Key("addReviewButton"))), isNotNull);
     },
   );
-
+/*
   testWidgets(
     'Can navigate out of the starter page',
     (WidgetTester tester) async {
@@ -245,4 +245,5 @@ void main() {
 
     await tester.signOut();
   });
+  */
 }
