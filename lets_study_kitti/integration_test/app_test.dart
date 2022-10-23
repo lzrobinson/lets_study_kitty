@@ -26,56 +26,8 @@ final passwordCInputFinder = find.descendant(
 
 final logInButtonFinder = find.text("LOG IN");
 final createAccountButtonFinder = find.text("CREATE ACCOUNT");
-/*
-class AuthCreds {
-  final String email;
-  final String password;
-
-  AuthCreds(this.email, this.password);
-
-  static AuthCreds generate() {
-    return AuthCreds('${Uuid().v1()}@example.com', "thisisapassword");
-  }
-}*/
 
 extension WidgetTesterExtension on WidgetTester {
-  /*
-  Future enterAuthCreds(AuthCreds creds) async {
-    await tap(emailInputFinder);
-    await pumpAndSettle();
-    await enterText(emailInputFinder, creds.email);
-    await pumpAndSettle();
-
-    await tap(passwordInputFinder);
-    await pumpAndSettle();
-    await enterText(passwordInputFinder, creds.password);
-    await pumpAndSettle();
-  }
-
-  Future register(AuthCreds creds) async {
-    await enterAuthCreds(creds);
-    await tap(signUpButtonFinder);
-    await pumpAndSettle();
-    await pump(Duration(seconds: 5));
-    await pump(Duration(seconds: 5));
-    await pump(Duration(seconds: 5));
-  }
-
-  Future signIn(AuthCreds creds) async {
-    await enterAuthCreds(creds);
-
-    await tap(signInButtonFinder);
-    await pumpAndSettle();
-    await pump(Duration(seconds: 5));
-    await pump(Duration(seconds: 5));
-    await pump(Duration(seconds: 5));
-  }
-
-  Future startApp() async {
-    app.main();
-    await pumpAndSettle();
-  }*/
-
   Future signOut() async {
     await tap(find.text(" Sign Out"));
     await pumpAndSettle();
