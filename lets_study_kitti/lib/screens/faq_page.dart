@@ -21,7 +21,7 @@ class FaqPage extends StatelessWidget {
             style: TextStyle(fontSize: 72, fontWeight: FontWeight.bold),
           ),
           SizedBox(
-            height: 20,
+            height: 30,
           ),
           Text(
             'What is Let’s Study Kitti?',
@@ -31,10 +31,52 @@ class FaqPage extends StatelessWidget {
             height: 5,
           ),
           Text(
-            'Let’s Study Kitti is a website to share and read student reviews on subjects at the University of Melbourne. This website was created as a part of COMP30022 (IT Project) by a group of students at UoM.',
+            'Let’s Study Kitti is a website to share and read student reviews on subjects at the University of Melbourne.',
+            style: TextStyle(fontSize: 15),
+          ),
+          Text(
+            'This website was created as a part of COMP30022 (IT Project) by a group of students at UoM.',
+            style: TextStyle(fontSize: 15),
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          Text(
+            'How can I read subject reviews?',
+            style: TextStyle(fontSize: 30),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Text(
+            'You can browse subject reviews by subject. Simply search for your subject in the search bar and click the desired subject title.',
+            style: TextStyle(fontSize: 15),
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          Text(
+            'How can I create subject reviews?',
+            style: TextStyle(fontSize: 30),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Text(
+            'If you are logged in with a registered account, simply click on the create review button and fill in all fields. An error message will display if you have not entered all fields correctly.',
+            style: TextStyle(fontSize: 15),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Text(
+            'Alternatively, if you are on the CS@unimelb discord server, you can submit subject reviews to the website through the subject-reviews channel.',
+            style: TextStyle(fontSize: 15),
+          ),
+          Text(
+            'Simply enter ‘/review’ to prompt the discord bot to generate the subject review fields.',
             style: TextStyle(fontSize: 15),
           )
-          // faq stuff will go here,
         ],
       ),
     );
