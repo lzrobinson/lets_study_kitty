@@ -294,7 +294,7 @@ class _ReviewFormState extends State<ReviewForm> {
                                           borderSide: BorderSide(),
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(20))),
-                                      labelText: 'Stream',
+                                      labelText: 'Subject Type',
                                       labelStyle: labelFont,
                                       suffixIcon: IconButton(
                                         icon: const Icon(Icons.close),
