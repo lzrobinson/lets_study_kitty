@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lets_study_kitti/home_page/home_page.dart';
 import 'package:lets_study_kitti/routes.dart';
 import 'package:lets_study_kitti/screens/email_verification.dart';
+import 'package:lets_study_kitti/screens/faq_page.dart';
 import 'package:lets_study_kitti/screens/login_page.dart';
 import 'package:lets_study_kitti/screens/profile_page.dart';
 import 'package:lets_study_kitti/screens/review_form_page.dart'
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
             const VerificationPage(),
         Routes.profilePage: (BuildContext context) =>
             const ProfilePage(userID: 'RNgLZFcrYfdQgLHbiKI7I4JCmMF2'),
+        Routes.faqPage: (BuildContext context) => const FaqPage(),
       },
       title: 'Lets Study Kitty',
       debugShowCheckedModeBanner: false,

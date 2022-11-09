@@ -6,4 +6,5 @@ class Routes {
   static const String signUpPage = '/signUp';
   static const String verifyEmailPage = '/verifyEmail';
   static const String profilePage = '/profilePage';
+  static const String faqPage = '/faq';
 }
